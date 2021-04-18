@@ -18,6 +18,7 @@
   "homepage": "https://github.com/am852410/pixel-progress-back-end#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "mongodb": "^3.6.6"
+    "mongodb": "^3.6.6",
+    "mongoose": "^5.12.4"
   }
 }
