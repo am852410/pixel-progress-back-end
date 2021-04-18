@@ -1,6 +1,23 @@
 {
+  "name": "pixel-progress-back-end",
+  "version": "1.0.0",
+  "description": "Pixel Progress Back End",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/am852410/pixel-progress-back-end.git"
+  },
+  "author": "Antonio and Victoria",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/am852410/pixel-progress-back-end/issues"
+  },
+  "homepage": "https://github.com/am852410/pixel-progress-back-end#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "react": "^17.0.2"
+    "mongodb": "^3.6.6"
   }
 }
