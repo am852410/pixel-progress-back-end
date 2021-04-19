@@ -13,7 +13,15 @@ app.get("/goals/:id", (req, res) => {
   Goal.findById(req.params.id, (err, foundGoal) => {
     if (err) return res.status(500).send(err);
     res.send(foundGoal);
+
+    console.log(parseJSON(foundGoal));
   });
+});
+
+app.get("/goals", async (req, res) => {
+  const goals = await Goal.find({});
+  if (err) return res.status(500).send(err);
+  res.send(goals);
 });
 
 app.put("/goals/:id", (req, res) => {
