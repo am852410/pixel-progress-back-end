@@ -1,10 +1,29 @@
+require("./app");
 const express = require("express");
 const Goal = require("./Models/goalModel.js");
+const cors = require("cors");
 const app = express();
+
+app.use(express.json());
+
+// Setup Cors middleware
+const whitelist = ["http://localhost:3000"];
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  }
+  // credentials: true
+};
+
+app.use(cors(corsOptions));
 
 app.post("/goals", (req, res) => {
   Goal.create(req.body, (error, createdGoal) => {
-    if (err) return res.status(500).send(err);
+    if (error) return res.status(500).send(error);
     res.send(createdGoal);
   });
 });
@@ -19,9 +38,12 @@ app.get("/goals/:id", (req, res) => {
 });
 
 app.get("/goals", async (req, res) => {
-  const goals = await Goal.find({});
-  if (err) return res.status(500).send(err);
-  res.send(goals);
+  try {
+    const goals = await Goal.find({});
+    res.send(goals);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
 
 app.put("/goals/:id", (req, res) => {
