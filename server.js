@@ -8,7 +8,7 @@ const PORT = 3003
 app.use(express.json());
 
 // Setup Cors middleware
-const whitelist = [`http://localhost:${PORT}`];
+const whitelist = [`http://localhost:3000`];
 const corsOptions = {
   origin: (origin, callback) => {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
