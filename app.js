@@ -5,7 +5,8 @@ const mongoURI = "mongodb://127.0.0.1:27017/pixels";
 
 const Goal = require("./Models/goalModel.js");
 const User = require("./Models/userModel.js");
-const goalSeed = require("./Models/seed.js");
+// const goalSeed = require("./Models/seed.js");
+const goalSeed = require("./Models/seedBootcamp.js");
 
 // Connect to Mongo
 mongoose.connect(

@@ -3,11 +3,12 @@ const express = require("express");
 const Goal = require("./Models/goalModel.js");
 const cors = require("cors");
 const app = express();
+const PORT = 3003
 
 app.use(express.json());
 
 // Setup Cors middleware
-const whitelist = ["http://localhost:3000"];
+const whitelist = [`http://localhost:3000`];
 const corsOptions = {
   origin: (origin, callback) => {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
@@ -70,6 +71,6 @@ app.delete("/goals/:id", (req, res) => {
   });
 });
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log("Server listening");
 });
