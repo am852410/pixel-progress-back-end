@@ -25,7 +25,7 @@ db.on("disconnected", () => console.log("mongo disconnected"));
 //   if (err) console.log(err.message);
 //   console.log("added provided goal data");
 // });
-Goal.count({}, (err, data) => {
+Goal.countDocuments({}, (err, data) => {
   if (err) console.log(err.message);
   console.log(`There are ${data} goals in this database`);
 });

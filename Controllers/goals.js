@@ -2,14 +2,14 @@ const Goal = require("../Models/goalModel.js");
 const express = require("express");
 const goals = express.Router();
 
-goals.post("/goals", (req, res) => {
+goals.post("", (req, res) => {
   Goal.create(req.body, (error, createdGoal) => {
     if (err) return res.status(500).send(err);
     res.send(createdGoal);
   });
 });
 
-goals.get("/goals/:id", (req, res) => {
+goals.get("/:id", (req, res) => {
   Goal.findById(req.params.id, (err, foundGoal) => {
     if (err) return res.status(500).send(err);
     res.send(foundGoal);
@@ -18,13 +18,16 @@ goals.get("/goals/:id", (req, res) => {
   });
 });
 
-goals.get("/goals", async (req, res) => {
-  const goals = await Goal.find({});
-  if (err) return res.status(500).send(err);
-  res.send(goals);
+goals.get("", async (req, res) => {
+  try {
+    const goals = await Goal.find({});
+    res.send(goals);
+  } catch (err) {
+    return res.status(500).send(err);
+  }
 });
 
-goals.put("/goals/:id", (req, res) => {
+goals.put("/:id", (req, res) => {
   Goal.findByIdAndUpdate(
     req.params.id,
     req.body,
@@ -36,7 +39,7 @@ goals.put("/goals/:id", (req, res) => {
   );
 });
 
-goals.delete("/goals/:id", (req, res) => {
+goals.delete("/:id", (req, res) => {
   Goal.findByIdAndRemove(req.params.id, (err, goal) => {
     if (err) return res.status(500).send(err);
     const response = {
