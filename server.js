@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 app.use("/goals", require("./Controllers/goals.js"));
-// app.use("/users", require("./Controllers/users"));
+app.use("/users", require("./Controllers/users.js"));
 
 app.use(express.json());
 
@@ -21,6 +21,31 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+// this line is creating the object "req.session"
+app.use(
+  session({
+    secret: "JustKiding",
+    resave: false, // default more info: https://www.npmjs.com/package/express-session#resave
+    saveUninitialized: false // default  more info: https://www.npmjs.com/package/express-session#resave
+  })
+);
+
+const isAuthenticated = (req, res, next) => {
+  if (req.session.currentUser) {
+    return next();
+  } else {
+    res.status(403).json({ msg: "loging require" });
+  }
+};
+
+// controllers
+app.use(
+  "/holidays",
+  isAuthenticated,
+  require("./controllers/holidaysController")
+);
+app.use("/users", require("./controllers/usersController"));
 
 app.listen(3000, () => {
   console.log("Server listening");

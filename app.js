@@ -5,7 +5,8 @@ const mongoURI = "mongodb://127.0.0.1:27017/pixels";
 
 const Goal = require("./Models/goalModel.js");
 const User = require("./Models/userModel.js");
-const goalSeed = require("./Models/seed.js");
+const goalSeed = require("./Seeds/goalSeed.js");
+const userSeed = require("./Seeds/userSeed.js");
 
 // Connect to Mongo
 mongoose.connect(
@@ -28,4 +29,14 @@ db.on("disconnected", () => console.log("mongo disconnected"));
 Goal.countDocuments({}, (err, data) => {
   if (err) console.log(err.message);
   console.log(`There are ${data} goals in this database`);
+});
+
+// User.create(userSeed, (err, data) => {
+//   if (err) console.log(err.message);
+//   console.log("added provided user data");
+// });
+
+User.countDocuments({}, (err, data) => {
+  if (err) console.log(err.message);
+  console.log(`There are ${data} users in this database`);
 });
