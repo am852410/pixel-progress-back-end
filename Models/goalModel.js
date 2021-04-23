@@ -4,7 +4,7 @@ const goalSchema = mongoose.Schema(
   {
     name: { type: String, required: true },
     completed: { type: Boolean, default: false },
-    type: { type: Array, default: [] },
+    type: { type: String},
     days: { type: Array, default: [] },
     week_start_dates: { type: Array, required: true },
     categories: { type: Array, default: [] },
