@@ -1,11 +1,17 @@
 require("./app");
+require("dotenv").config();
 const express = require("express");
-const Goal = require("./Models/goalModel.js");
-const cors = require("cors");
+const bodyParser = require("body-parser");
 const app = express();
+
+const jsonParser = bodyParser.json();
+const cors = require("cors");
+const session = require("express-session");
+
 const PORT = 3003
 
 app.use(express.json());
+
 
 // Setup Cors middleware
 const whitelist = [`http://localhost:3000`];
@@ -16,60 +22,33 @@ const corsOptions = {
     } else {
       callback(new Error("Not allowed by CORS"));
     }
+  },
+  credentials: true
+};
+
+const isAuthenticated = (req, res, next) => {
+  if (req.session.currentUser) {
+    return next();
+  } else {
+    res.status(403).json({ msg: "loging require" });
   }
-  // credentials: true
 };
 
 app.use(cors(corsOptions));
 
-app.post("/goals", (req, res) => {
-  Goal.create(req.body, (error, createdGoal) => {
-    if (error) return res.status(500).send(error);
-    res.send(createdGoal);
-  });
-});
-
-app.get("/goals/:id", (req, res) => {
-  Goal.findById(req.params.id, (err, foundGoal) => {
-    if (err) return res.status(500).send(err);
-    res.send(foundGoal);
-
-    console.log(parseJSON(foundGoal));
-  });
-});
-
-app.get("/goals", async (req, res) => {
-  try {
-    const goals = await Goal.find({});
-    res.send(goals);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-});
-
-app.put("/goals/:id", (req, res) => {
-  Goal.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    { new: true },
-    (err, updatedGoal) => {
-      if (err) return res.status(500).send(err);
-      return res.send(updatedGoal);
-    }
-  );
-});
-
-app.delete("/goals/:id", (req, res) => {
-  Goal.findByIdAndRemove(req.params.id, (err, goal) => {
-    if (err) return res.status(500).send(err);
-    const response = {
-      message: "Goal successfully deleted",
-      id: goal._id
-    };
-
-    return res.status(200).send(response);
-  });
-});
+// this line is creating the object "req.session"
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false, // default more info: https://www.npmjs.com/package/express-session#resave
+    saveUninitialized: false // default  more info: https://www.npmjs.com/package/express-session#resave
+  })
+);
+app.use(express.json());
+// controllers
+app.use("/goals", isAuthenticated, require("./Controllers/goals"));
+app.use("/users", require("./Controllers/users"));
+app.use(express.urlencoded({ extended: true }));
 
 app.listen(PORT, () => {
   console.log("Server listening");
