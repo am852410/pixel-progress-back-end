@@ -1,11 +1,11 @@
 require("./app");
+require("dotenv").config();
 const express = require("express");
+const bodyParser = require("body-parser");
 const app = express();
+const jsonParser = bodyParser.json();
 const cors = require("cors");
-app.use("/goals", require("./Controllers/goals.js"));
-app.use("/users", require("./Controllers/users.js"));
-
-app.use(express.json());
+const session = require("express-session");
 
 // Setup Cors middleware
 const whitelist = ["http://localhost:3000"];
@@ -20,17 +20,6 @@ const corsOptions = {
   credentials: true
 };
 
-app.use(cors(corsOptions));
-
-// this line is creating the object "req.session"
-app.use(
-  session({
-    secret: "JustKiding",
-    resave: false, // default more info: https://www.npmjs.com/package/express-session#resave
-    saveUninitialized: false // default  more info: https://www.npmjs.com/package/express-session#resave
-  })
-);
-
 const isAuthenticated = (req, res, next) => {
   if (req.session.currentUser) {
     return next();
@@ -39,13 +28,21 @@ const isAuthenticated = (req, res, next) => {
   }
 };
 
-// controllers
+app.use(cors(corsOptions));
+
+// this line is creating the object "req.session"
 app.use(
-  "/holidays",
-  isAuthenticated,
-  require("./controllers/holidaysController")
+  session({
+    secret: process.env.SECRET,
+    resave: false, // default more info: https://www.npmjs.com/package/express-session#resave
+    saveUninitialized: false // default  more info: https://www.npmjs.com/package/express-session#resave
+  })
 );
-app.use("/users", require("./controllers/usersController"));
+app.use(express.json());
+// controllers
+app.use("/goals", isAuthenticated, require("./Controllers/goals"));
+app.use("/users", require("./Controllers/users"));
+app.use(express.urlencoded({ extended: true }));
 
 app.listen(3000, () => {
   console.log("Server listening");

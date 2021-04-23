@@ -13,8 +13,6 @@ goals.get("/:id", (req, res) => {
   Goal.findById(req.params.id, (err, foundGoal) => {
     if (err) return res.status(500).send(err);
     res.send(foundGoal);
-
-    console.log(parseJSON(foundGoal));
   });
 });
 

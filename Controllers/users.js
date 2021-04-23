@@ -9,7 +9,7 @@ users.post("", (req, res) => {
     bcrypt.genSaltSync(10)
   );
 
-  User.create(req.body, (error, createdUser) => {
+  User.create(req.body, (err, createdUser) => {
     if (err) return res.status(500).send(err);
     res.send(createdUser);
   });
@@ -17,7 +17,8 @@ users.post("", (req, res) => {
 
 // USER LOGIN ROUTE (CREATE SESSION ROUTE)
 users.post("/login", (req, res) => {
-  Users.findOne({ username: req.body.username }, (err, foundUser) => {
+  console.log("username", req.body.username);
+  User.findOne({ username: req.body.username }, (err, foundUser) => {
     if (err) {
       res.send(err);
     } else {
@@ -40,8 +41,6 @@ users.get("/:id", (req, res) => {
   User.findById(req.params.id, (err, foundUser) => {
     if (err) return res.status(500).send(err);
     res.send(foundUser);
-
-    console.log(parseJSON(foundUser));
   });
 });
 
