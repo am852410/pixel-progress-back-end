@@ -9,7 +9,7 @@ const cors = require("cors");
 const session = require("express-session");
 
 app.use(express.json());
-app.use(cors());
+
 // Setup Cors middleware
 // const whitelist = [process.env.BASEURL, process.env.FRONTENDURL];
 // const corsOptions = {
@@ -31,7 +31,7 @@ const isAuthenticated = (req, res, next) => {
   }
 };
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 // this line is creating the object "req.session"
 app.use(
