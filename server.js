@@ -11,7 +11,7 @@ const session = require("express-session");
 app.use(express.json());
 
 // Setup Cors middleware
-const whitelist = [process.env.BASEURL];
+const whitelist = [process.env.BASEURL, process.env.FRONTENDURL];
 const corsOptions = {
   origin: (origin, callback) => {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
