@@ -9,19 +9,19 @@ const cors = require("cors");
 const session = require("express-session");
 
 app.use(express.json());
-
+app.use(cors());
 // Setup Cors middleware
-const whitelist = [process.env.BASEURL, process.env.FRONTENDURL];
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true
-};
+// const whitelist = [process.env.BASEURL, process.env.FRONTENDURL];
+// const corsOptions = {
+//   origin: (origin, callback) => {
+//     if (whitelist.indexOf(origin) !== -1 || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   credentials: true
+// };
 
 const isAuthenticated = (req, res, next) => {
   if (req.session.currentUser) {
