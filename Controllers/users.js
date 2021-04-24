@@ -31,7 +31,7 @@ users.post("/login", (req, res) => {
           res.status(404).json({ err: "User Not Found" });
         }
       } else {
-        res.status(400).json({ err: err.message });
+        res.status(400).json({ err: "User Not Found" });
       }
     }
   });
