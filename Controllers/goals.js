@@ -3,7 +3,8 @@ const express = require("express");
 const goals = express.Router();
 
 goals.post("", (req, res) => {
-  Goal.create(req.body, (error, createdGoal) => {
+  req.body.user_id = req.session.currentUser._id;
+  Goal.create(req.body, (err, createdGoal) => {
     if (err) return res.status(500).send(err);
     res.send(createdGoal);
   });

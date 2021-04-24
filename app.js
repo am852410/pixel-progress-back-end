@@ -17,8 +17,8 @@ mongoose.connect(
   }
 );
 
-// Error / success
-db.on("error", err => console.log(err.message + " is Mongod not running?"));
+// err / success
+db.on("err", err => console.log(err.message + " is Mongod not running?"));
 db.on("connected", () => console.log("mongo connected: ", mongoURI));
 db.on("disconnected", () => console.log("mongo disconnected"));
 

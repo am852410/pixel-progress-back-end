@@ -24,7 +24,7 @@ const isAuthenticated = (req, res, next) => {
   if (req.session.currentUser) {
     return next();
   } else {
-    res.status(403).json({ msg: "loging require" });
+    res.status(403).json({ msg: "log in required" });
   }
 };
 
