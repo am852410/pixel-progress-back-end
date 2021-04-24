@@ -18,7 +18,9 @@ mongoose.connect(
 
 // err / success
 db.on("err", err => console.log(err.message + " is Mongod not running?"));
-db.on("connected", () => console.log("mongo connected: ", mongoURI));
+db.on("connected", () =>
+  console.log("mongo connected: ", process.env.MONGODBURI)
+);
 db.on("disconnected", () => console.log("mongo disconnected"));
 
 // Goal.create(goalSeed, (err, data) => {
