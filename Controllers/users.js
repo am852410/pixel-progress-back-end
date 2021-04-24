@@ -36,7 +36,6 @@ users.post("/login", (req, res) => {
     }
   });
 });
-
 users.get("/:id", (req, res) => {
   User.findById(req.params.id, (err, foundUser) => {
     if (err) return res.status(500).send(err);

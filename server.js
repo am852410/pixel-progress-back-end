@@ -8,13 +8,10 @@ const jsonParser = bodyParser.json();
 const cors = require("cors");
 const session = require("express-session");
 
-const PORT = 3003
-
 app.use(express.json());
 
-
 // Setup Cors middleware
-const whitelist = [`http://localhost:3000`];
+const whitelist = [process.env.BASEURL];
 const corsOptions = {
   origin: (origin, callback) => {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
@@ -50,6 +47,6 @@ app.use("/goals", isAuthenticated, require("./Controllers/goals"));
 app.use("/users", require("./Controllers/users"));
 app.use(express.urlencoded({ extended: true }));
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT, () => {
   console.log("Server listening");
 });
