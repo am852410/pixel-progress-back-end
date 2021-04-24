@@ -43,7 +43,7 @@ app.use(
 );
 app.use(express.json());
 // controllers
-app.use("/goals", isAuthenticated, require("./Controllers/goals"));
+app.use("/goals", require("./Controllers/goals"));
 app.use("/users", require("./Controllers/users"));
 app.use(express.urlencoded({ extended: true }));
 
