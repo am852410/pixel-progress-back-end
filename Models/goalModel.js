@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+const {Schema, model} = mongoose;
 
-const goalSchema = mongoose.Schema(
+const goalSchema = new Schema(
   {
     name: { type: String, required: true },
     completed: { type: Boolean, default: false },
@@ -14,6 +15,6 @@ const goalSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const Goal = mongoose.model("Goal", goalSchema);
+const Goal = model("Goal", goalSchema);
 
 module.exports = Goal;
