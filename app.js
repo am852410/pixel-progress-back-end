@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const db = mongoose.connection;
+require("dotenv").config();
 
 const Goal = require("./Models/goalModel.js");
 const User = require("./Models/userModel.js");

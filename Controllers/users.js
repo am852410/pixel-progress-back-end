@@ -3,7 +3,8 @@ const bcrypt = require("bcrypt");
 const express = require("express");
 const users = express.Router();
 
-users.post("", (req, res) => {
+// USER CREATE ROUTE
+users.post("/signup", (req, res) => {
   req.body.password = bcrypt.hashSync(
     req.body.password,
     bcrypt.genSaltSync(10)
@@ -15,27 +16,8 @@ users.post("", (req, res) => {
   });
 });
 
-// USER LOGIN ROUTE (CREATE SESSION ROUTE)
-users.post("/login", (req, res) => {
-  console.log("username", req.body.username);
-  User.findOne({ username: req.body.username }, (err, foundUser) => {
-    if (err) {
-      res.send(err);
-    } else {
-      if (foundUser) {
-        if (bcrypt.compareSync(req.body.password, foundUser.password)) {
-          //login user and create session
-          req.session.currentUser = foundUser;
-          res.status(200).json(foundUser);
-        } else {
-          res.status(404).json({ err: "User Not Found" });
-        }
-      } else {
-        res.status(400).json({ err: "User Not Found" });
-      }
-    }
-  });
-});
+
+
 users.get("/:id", (req, res) => {
   User.findById(req.params.id, (err, foundUser) => {
     if (err) return res.status(500).send(err);
