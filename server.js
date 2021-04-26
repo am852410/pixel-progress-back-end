@@ -139,7 +139,7 @@ app.use(express.json());
 // ADD ISUATHENTICATED HERE
 app.use("/goals", require("./Controllers/goals"));
 app.use("/users", require("./Controllers/users"));
-app.use("/sessions", require("./Controllers/sessions"));
+// app.use("/sessions", require("./Controllers/sessions"));
 //--------------------------------------------
 
 //--------------------------------------------

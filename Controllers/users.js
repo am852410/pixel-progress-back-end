@@ -10,13 +10,42 @@ users.post("/signup", (req, res) => {
     bcrypt.genSaltSync(10)
   );
 
-  User.create(req.body, (err, createdUser) => {
-    if (err) return res.status(500).send(err);
-    res.send(createdUser);
+  User.create(req.body, (error, createdUser) => {
+        if (error) {
+            res.status(400).json({ error: error.message })
+        }
+        else {
+            console.log("user has been registered")
+            res.status(201).json(createdUser)
+        }
   });
 });
 
+//--------------------------------------------
+// USER LOGIN ROUTE (CREATE SESSION ROUTE)
+users.post('/login', (req, res) => {
+  User.findOne({ username: req.body.username}, (error, foundUser) => {
+    if (error) {
+      res.send(error)
+    } else {
+      if (foundUser) {
+        if (bcrypt.compareSync(req.body.password, foundUser.password)) {
+          req.session.currentUser = foundUser
+          console.log(`${req.body.username} has been logged in!`)
+          res.status(200).json(foundUser)
+        }
+        else {
+          res.status(404).json({ error: 'User Not Found'})
+        }
+      } else {
+        res.status(400).json({error: error})
+      }
+    }
+  })
+})
+//--------------------------------------------
 
+//////////////...QA PROGRESSION...//////////////
 
 users.get("/:id", (req, res) => {
   User.findById(req.params.id, (err, foundUser) => {
