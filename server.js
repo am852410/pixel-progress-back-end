@@ -110,23 +110,14 @@ db.on('disconnected', ()=> { console.log("mongo disconnected")})
 //--------------------------------------------
 //AUTHENTICATED
 //--------------------------------------------
-// if (req.session.currentUser) {
-//     return next()
-// } else {
-//     res.status(403).json({msg:"login required"})
-//   }
-// }
+const isAuthenticated = (req, res, next) => {
+    if (req.session.currentUser) {
+        return next()
+    } else {
+        res.status(403).json({msg:"login required"})
+    }
+}
 
-// OR
-
-// const isAuthenticated = (req, res, next) => {
-//   if (req.session.currentUser) {
-//     console.log('authenticated.');
-//     return next();
-//   } else {
-//     res.status(403).json({ msg: "log in required" });
-//   }
-// };
 //--------------------------------------------
 
 //--------------------------------------------
@@ -136,10 +127,9 @@ app.use(express.json());
 
 //--------------------------------------------
 //CONTROLLERS
-// ADD ISUATHENTICATED HERE
+//ADD ISAUTHENTICATED HERE - AFTER FE CONDITIONAL ADDED
 app.use("/goals", require("./Controllers/goals"));
 app.use("/users", require("./Controllers/users"));
-// app.use("/sessions", require("./Controllers/sessions"));
 //--------------------------------------------
 
 //--------------------------------------------
