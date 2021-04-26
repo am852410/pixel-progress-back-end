@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 const db = mongoose.connection;
 require("dotenv").config();
 
@@ -7,6 +7,8 @@ const User = require("./Models/userModel.js");
 
 const goalSeed = require("./Seeds/goalSeed.js");
 const userSeed = require("./Seeds/userSeed.js");
+
+const session = require('express-session');
 
 // Connect to Mongo
 mongoose.connect(

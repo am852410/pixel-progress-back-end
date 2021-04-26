@@ -3,12 +3,12 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const User = require('../Models/userModel')
 
-// router.get('/new', (req, res) => {
-//   console.log(`session get router`)
-// })
+router.get('/sessions', (req, res) => {
+  console.log(`session get router`)
+})
 
 // USER LOGIN ROUTE (CREATE SESSION ROUTE)
-router.post("/login", (req, res) => {
+router.post("/sessions", (req, res) => {
   console.log('login route starting...')
   console.log("login route username", req.body.username);
 
