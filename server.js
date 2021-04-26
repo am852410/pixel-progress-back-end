@@ -45,6 +45,7 @@ app.use(express.json());
 // controllers
 app.use("/goals", require("./Controllers/goals"));
 app.use("/users", require("./Controllers/users"));
+app.use("/sessions", require("./Controllers/sessions"));
 app.use(express.urlencoded({ extended: true }));
 
 app.listen(process.env.PORT, () => {

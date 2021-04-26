@@ -11,7 +11,7 @@ const User = require('../Models/userModel')
 router.post("/login", (req, res) => {
   console.log('login route starting...')
   console.log("login route username", req.body.username);
-  
+
   User.findOne({ username: req.body.username }, (err, foundUser) => {
     if (err) {
       res.send(err);
@@ -30,3 +30,6 @@ router.post("/login", (req, res) => {
     }
   });
 });
+
+
+module.exports = router;
