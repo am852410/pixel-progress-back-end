@@ -13,38 +13,37 @@ users.post("/signup", (req, res) => {
   );
 
   User.create(req.body, (error, createdUser) => {
-        if (error) {
-            res.status(400).json({ error: error.message })
-        }
-        else {
-            console.log("user has been registered")
-            res.status(201).json(createdUser)
-        }
+    if (error) {
+      res.status(400).json({ error: error.message });
+    } else {
+      console.log("user has been registered");
+      req.session.currentUser = createdUser;
+      res.status(201).json(createdUser);
+    }
   });
 });
 //--------------------------------------------
 // USER LOGIN ROUTE (CREATE SESSION ROUTE)
 //--------------------------------------------
-users.post('/login', (req, res) => {
-  User.findOne({ username: req.body.username}, (error, foundUser) => {
+users.post("/login", (req, res) => {
+  User.findOne({ username: req.body.username }, (error, foundUser) => {
     if (error) {
-      res.send(error)
+      res.send(error);
     } else {
       if (foundUser) {
         if (bcrypt.compareSync(req.body.password, foundUser.password)) {
-          req.session.currentUser = foundUser
-          console.log(`${req.body.username} has been logged in!`)
-          res.status(200).json(foundUser)
-        }
-        else {
-          res.status(404).json({ error: 'User Not Found'})
+          req.session.currentUser = foundUser;
+          console.log(`${req.body.username} has been logged in!`);
+          res.status(200).json(foundUser);
+        } else {
+          res.status(404).json({ error: "User Not Found" });
         }
       } else {
-        res.status(400).json({error: error})
+        res.status(400).json({ error: error });
       }
     }
-  })
-})
+  });
+});
 //--------------------------------------------
 
 //--------------------------------------------
@@ -96,11 +95,11 @@ users.put("/:id", (req, res) => {
 // USER LOGOUT ROUTE (DELETE/DESTROY SESSION ROUTE)
 //--------------------------------------------
 
-users.delete('/logout', (req, res) => {
+users.delete("/logout", (req, res) => {
   req.session.destroy(() => {
-    res.status(200).json({msg: 'user logged out'})
-  })
-})
+    res.status(200).json({ msg: "user logged out" });
+  });
+});
 
 //--------------------------------------------
 // DELETE USER
@@ -112,7 +111,7 @@ users.delete('/logout', (req, res) => {
 //       message: "User successfully deleted",
 //       id: user._id
 //     };
-    // return res.status(200).send(response);
+// return res.status(200).send(response);
 //   });
 // });
 
