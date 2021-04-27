@@ -58,7 +58,7 @@ const corsOptions = {
       callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true
+  // credentials: true
 };
 app.use(cors(corsOptions));
 //--------------------------------------------
@@ -72,21 +72,21 @@ app.set("trust proxy", 1); // trust first proxy
 //--------------------------------------------
 //SESSION
 //--------------------------------------------
-app.use(
-  session({
-    secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: false,
-    store: new MongoDBStore({
-      uri: mongoURI,
-      collection: "mySessions"
-    }),
-    cookie: {
-      sameSite: "none",
-      secure: true
-    }
-  })
-);
+// app.use(
+//   session({
+//     secret: process.env.SECRET,
+//     resave: false,
+//     saveUninitialized: false,
+//     store: new MongoDBStore({
+//       uri: mongoURI,
+//       collection: "mySessions"
+//     }),
+//     cookie: {
+//       sameSite: "none",
+//       secure: true
+//     }
+//   })
+// );
 //--------------------------------------------
 
 //--------------------------------------------
