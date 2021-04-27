@@ -7,12 +7,14 @@ const users = express.Router();
 // USER CREATE ROUTE
 //--------------------------------------------
 users.post("/signup", (req, res) => {
+  console.log("signup");
   req.body.password = bcrypt.hashSync(
     req.body.password,
     bcrypt.genSaltSync(10)
   );
-
+  console.log(req.body);
   User.create(req.body, (error, createdUser) => {
+    console.log(error, createdUser);
     if (error) {
       res.status(400).json({ error: error.message });
     } else {

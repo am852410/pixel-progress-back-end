@@ -139,7 +139,8 @@ app.use(express.json());
 //--------------------------------------------
 //CONTROLLERS
 //ADD ISAUTHENTICATED HERE - AFTER FE CONDITIONAL ADDED
-app.use("/goals", isAuthenticated, require("./Controllers/goals"));
+// app.use("/goals", isAuthenticated, require("./Controllers/goals"));
+app.use("/goals", require("./Controllers/goals"));
 app.use("/users", require("./Controllers/users"));
 //--------------------------------------------
 
@@ -160,4 +161,4 @@ app.listen(PORT, () => {
 /////////////////////////
 // const bodyParser = require("body-parser");
 // const jsonParser = bodyParser.json();
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
