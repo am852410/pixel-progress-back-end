@@ -50,23 +50,31 @@ const MongoDBStore = require("connect-mongodb-session")(session);
 //CORS SETUP
 //--------------------------------------------
 const whitelist = ["http://localhost:3000", "https://pixel-progress-frontend.herokuapp.com"];
+
 const corsOptions = {
-  origin: (origin, callback) => {
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  // credentials: true
-};
+    "origin": whitelist,
+    "methods": "GET,PUT,PATCH,POST,DELETE",
+    "credentials" : true
+}
+
+// const corsOptions = {
+//   "origin": (origin, callback) => {
+//     if (whitelist.indexOf(origin) !== -1 || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   // credentials: true
+// 	"methods": "GET,PUT,PATCH,POST,DELETE",
+// };
 app.use(cors(corsOptions));
 //--------------------------------------------
 
 //--------------------------------------------
 //PROXY
 //--------------------------------------------
-app.set("trust proxy", 1); // trust first proxy
+// app.set("trust proxy", 1); // trust first proxy
 //--------------------------------------------
 
 //--------------------------------------------
