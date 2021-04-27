@@ -49,7 +49,7 @@ const MongoDBStore = require("connect-mongodb-session")(session);
 //--------------------------------------------
 //CORS SETUP
 //--------------------------------------------
-const whitelist = ["http://localhost:3000", process.env.HEROKUFRONTEND];
+const whitelist = ["http://localhost:3000", "https://pixel-progress-frontend.herokuapp.com"];
 const corsOptions = {
   origin: (origin, callback) => {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
